@@ -3,6 +3,12 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedManager, self).get_queryset()\
+                                            .filter(status='published')
+
+
 class Post(models.Model):
     STATUTS_CHOICES = (
         ('draft', 'Draft'),
@@ -21,6 +27,9 @@ class Post(models.Model):
     status = models.CharField(max_length=10,
                               choices=STATUTS_CHOICES,
                               default='draft')
+
+    objects = models.Manager()  # default model manager
+    published = PublishedManager()  # our custom manager
 
     class Meta:
         ordering = ('-publish',)
