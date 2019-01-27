@@ -9,6 +9,7 @@ flake8 = "*"
 
 [packages]
 django = "==2.1.5"
+django-taggit = "*"
 
 [requires]
 python_version = "3.6"
